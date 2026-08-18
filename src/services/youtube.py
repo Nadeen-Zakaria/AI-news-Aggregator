@@ -25,3 +25,16 @@ def search_videos(query, max_results=5):
     response = request.execute()
 
     return response["items"]
+
+def get_video_details(video_id):
+    request = youtube.videos().list(
+        part="snippet,contentDetails,statistics",
+        id=video_id
+    )
+
+    response = request.execute()
+
+    if not response["items"]:
+        return None
+
+    return response["items"][0]
